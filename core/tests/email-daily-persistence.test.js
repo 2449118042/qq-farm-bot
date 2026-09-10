@@ -209,6 +209,7 @@ test('上游 Worker 的登录与跨日强制任务遵守邮箱时刻，同日整
         '../services/email': email,
         '../services/status': { setRecordGoldExpHook: noop },
         '../services/automation-lock': require('../dist/services/automation-lock'),
+        '../services/ranch/automation': { getRoutineState: () => ({ doneToday: true, nextCheckAt: Infinity }), run: async () => {}, resetSchedule: noop },
         '../services/scheduler': { createScheduler: () => ({ clear: noop, setIntervalTask: (_name, ms, fn) => {
             assert.equal(ms, 30000);
             tick = fn;
